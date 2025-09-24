@@ -8,17 +8,6 @@ net user administrator /active:no
 netsh advfirewall firewall add rule name="ICMP Allow incoming V4 echo request" protocol=icmpv4:8,any dir=in action=allow
 netsh advfirewall firewall add rule name="ICMP Allow incoming V6 echo request" protocol=icmpv6:8,any dir=in action=allow
 
-# Use muni ntp server
-Push-Location
-Set-Location HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DateTime\Servers
-Set-ItemProperty . 0 "ntp1.muni.cz"
-Set-ItemProperty . "(Default)" "0"
-Set-Location HKLM:\SYSTEM\CurrentControlSet\services\W32Time\Parameters
-Set-ItemProperty . NtpServer "ntp1.muni.cz"
-Pop-Location
-Stop-Service w32time
-Start-Service w32time
-
 # Enable disk performance counters
 diskperf -y
 

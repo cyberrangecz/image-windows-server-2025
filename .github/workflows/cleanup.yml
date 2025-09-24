@@ -1,0 +1,9 @@
+on:
+  delete:
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    if: ${{ !startsWith(github.event.ref, 'citest') && github.event.ref_type != 'tag' }}
+    uses: cyberrangecz/ci-images/.github/workflows/cleanup.yml@master
+    secrets: inherit

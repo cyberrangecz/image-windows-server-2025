@@ -220,7 +220,7 @@
               <Description>Disable UAC</Description>
           </SynchronousCommand>
           <SynchronousCommand wcm:action="add">
-              <CommandLine>cmd.exe /c powershell -Command "Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2088631' -OutFile 'C:\Windows\Temp\ndp48-x86-x64-allos-enu.exe'"</CommandLine>
+              <CommandLine>cmd.exe /c powershell -Command "$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri 'https://go.microsoft.com/fwlink/?linkid=2088631' -OutFile 'C:\Windows\Temp\ndp48-x86-x64-allos-enu.exe'"</CommandLine>
               <Description>Download .NET Framework binary</Description>
               <Order>22</Order>
               <RequiresUserInput>true</RequiresUserInput>

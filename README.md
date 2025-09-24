@@ -1,6 +1,6 @@
 # Windows Server 2019 Base image
 
-This repo contains Packer files for building Windows Server 2019 amd64 Standard Desktop base image for QEMU/OpenStack and for VirtualBox/Vagrant using Gitlab CI/CD.
+This repo contains Packer files for building Windows Server 2019 amd64 Standard Desktop base image for QEMU/OpenStack.
 
 SSH and WinRM is enabled, SSH login using password is disabled.
 
@@ -12,23 +12,9 @@ There is one admin user account:
 
 *  `windows` with password set to random upon startup by [cloudbase-init](https://cloudbase-init.readthedocs.io/en/latest/intro.html) unless password is provided via OpenStack metadata `admin_pass`
 
-## Image for VirtualBox/Vagrant
-
-**Image for VirtualBox/Vagrant is currently broken**
-
-There is one admin user account:
-
-*  `windows` with password `vagrant` 
-
-If Ansible fails to connect, add `"ansible_winrm_scheme" => "http"` to `ansible.extra_vars` in Vagrantfile.
-
 ## How to build
 
-For information how to build this image see [wiki](https://gitlab.ics.muni.cz/muni-kypo-images/muni-kypo-images-wiki/-/wikis/How-to-build-an-image-locally).
-
-## Known issues and requested features
-
-* See [issues](https://gitlab.ics.muni.cz/muni-kypo-images/windows-server-2019/-/issues).
+For information how to build this image see [wiki](https://github.com/cyberrangecz/images-wiki).
 
 ## License
 
@@ -38,13 +24,13 @@ This project is licensed under the [MIT License](LICENSE).
 
 <table>
   <tr>
-    <td>![EU](figures/EU.jpg "EU emblem")</td>
+    <td><img src="figures/EU.jpg" alt="EU emblem"/></td>
     <td>
 This software and accompanying documentation is part of a [project](https://cybersec4europe.eu) that has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No. 830929.
 </td>
   </tr>
   <tr>
-      <td>![TACR](figures/TACR.png "TACR logo")</td>
+      <td><img src="figures/TACR.png" alt="TACR logo"/></td>
       <td>This software was developed with the support of the Technology Agency of the Czech Republic (TA ČR) from the National Centres of Competence programme (project identification TN01000077 – [National Centre of Competence in Cybersecurity](https://nc3.cz/)). 
       </td>
   </tr>
