@@ -26,3 +26,5 @@ shrink
 if ((Get-Date) -ge $startTime.AddSeconds($timeout)) {
     Write-Host "Timeout: Shrink is still not successfull after $timeout seconds."
 }
+
+Write-VolumeCache C
