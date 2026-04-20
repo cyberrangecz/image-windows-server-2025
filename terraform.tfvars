@@ -1,5 +1,5 @@
-NAME             = "windows-server-2019"
+NAME             = "windows-server-2025"
 TYPE             = "windows"
 DISTRO           = "windows"
 GUI_ACCESS       = "true"
-IMAGE_LOCAL_PATH = "target-qemu/windows-server-2019.qcow2"
+IMAGE_LOCAL_PATH = "target-qemu/windows-server-2025.qcow2"

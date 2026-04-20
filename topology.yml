@@ -1,4 +1,4 @@
-name: windows-server-2019-testing-topology
+name: windows-server-2025-testing-topology
 
 hosts:
   - name: image-test

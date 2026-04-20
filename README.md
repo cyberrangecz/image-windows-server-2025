@@ -1,4 +1,4 @@
-# Windows Server 2019 Base image
+# Windows Server 2025 Base image
 
 This repo contains Packer files for building Windows Server 2025 amd64 Standard Desktop base image for QEMU/OpenStack.
 
