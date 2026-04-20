@@ -110,19 +110,19 @@
                 </OSImage>
             </ImageInstall>
         </component>
-        <!-- <component name="Microsoft-Windows-PnpCustomizationsWinPE" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="amd64" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
+        <component name="Microsoft-Windows-PnpCustomizationsWinPE" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS" processorArchitecture="amd64" xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State">
             <DriverPaths>
                 <PathAndCredentials wcm:action="add" wcm:keyValue="1">
-                    <Path>E:\viostor\2k22\amd64</Path>
+                    <Path>E:\viostor\2k25\amd64</Path>
                 </PathAndCredentials>
-                <PathAndCredentials wcm:action="add" wcm:keyValue="2">
-                    <Path>E:\NetKVM\2k22\amd64</Path>
+                <!-- <PathAndCredentials wcm:action="add" wcm:keyValue="2">
+                    <Path>E:\NetKVM\2k25\amd64</Path>
                 </PathAndCredentials>
                 <PathAndCredentials wcm:action="add" wcm:keyValue="3">
-                    <Path>E:\vioinput\2k22\amd64</Path>
-                </PathAndCredentials>
+                    <Path>E:\vioinput\2k25\amd64</Path>
+                </PathAndCredentials> -->
             </DriverPaths>
-        </component> -->
+        </component>
         <component xmlns:wcm="http://schemas.microsoft.com/WMIConfig/2002/State" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Microsoft-Windows-International-Core-WinPE" processorArchitecture="amd64" publicKeyToken="31bf3856ad364e35" language="neutral" versionScope="nonSxS">
             <SetupUILanguage>
                 <UILanguage>en-US</UILanguage>
