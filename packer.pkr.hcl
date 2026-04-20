@@ -5,7 +5,7 @@ packer {
       version = "~> 1"
     }
     windows-update = {
-      version = "0.17.1"
+      version = "0.18.1"
       source  = "github.com/rgl/windows-update"
     }
     external = {
@@ -22,68 +22,72 @@ data "external-raw" "virtio" {
   ]
 }
 
-source "qemu" "windows_server_2019" {
-  boot_wait            = "5s"
+source "qemu" "windows_server_2025" {
+  boot_wait            = "10s"
   disk_interface       = "virtio"
-  disk_size            = "51200"
-  floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/configureRemotingForAnsible.ps1"]
+  disk_size            = "50000"
+  floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/spiceToolsInstall.ps1", "scripts/fixnetwork.ps1", "scripts/power_plan_tune.cmd"]
   format               = "raw"
   headless             = "true"
-  iso_checksum         = "6dae072e7f78f4ccab74a45341de0d6e2d45c39be25f1f5920a2ab4f51d7bcbb"
-  iso_url              = "https://software-static.download.prss.microsoft.com/dbazure/988969d5-f34g-4e03-ac9d-1f9786c66749/17763.3650.221105-1748.rs5_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
+  iso_checksum         = "7b052573ba7894c9924e3e87ba732ccd354d18cb75a883efa9b900ea125bfd51"
+  iso_url              = "https://software-static.download.prss.microsoft.com/dbazure/998969d5-f34g-4e03-ac9d-1f9786c66749/26100.32230.260111-0550.lt_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
   output_directory     = "target-qemu"
-  qemuargs             = [["-m", "4096m"], ["-smp", "cpus=4,maxcpus=16,cores=4"], ["-cdrom", "virtio-win.iso"]]
+  qemuargs             = [
+      ["-enable-kvm"],
+      ["-m", "6144m"],
+      ["-smp", "4,sockets=1,cores=4,threads=1"],
+      ["-cpu", "host,hv_relaxed,hv_vapic,hv_runtime,hv_time,hv_vpindex,hv_synic,hv_stimer,hv_tlbflush,hv_ipi,hv_frequencies,hv_stimer_direct,hv_xmm_input,hv_tlbflush,hv_spinlocks=0x1fff"], #hv_tlbflush_ext not supported in kernel
+      ["-device", "virtio-tablet"], # Better mouse tracking in VNC
+      ["-cdrom", "virtio-win.iso"]
+  ]
   shutdown_command     = "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\""
-  ssh_private_key_file = "vagrant-key"
+  ssh_private_key_file = "ssh-key"
   ssh_username         = "windows"
   ssh_wait_timeout     = "5h"
   use_default_display  = "true"
-  vm_name              = "windows-server-2019"
+  vm_name              = "windows-server-2025"
   vnc_bind_address     = "0.0.0.0"
   vnc_port_max         = "5900"
   vnc_port_min         = "5900"
 }
 
 build {
-  sources = ["source.qemu.windows_server_2019"]
+  sources = ["source.qemu.windows_server_2025"]
 
-  provisioner "windows-update" {}
+  provisioner "windows-restart" {} #fix system interrupts - spice tools needed reboot
 
-  provisioner "powershell" {
-    scripts = ["scripts/configureRemotingForAnsible.ps1"]
-  }
-
-  provisioner "windows-shell" {
-    script = "scripts/disableAutoLogon.bat"
-  }
-
-  provisioner "file" {
-    destination = "C:/Windows/Temp/"
-    source      = "scripts/spice-guest-tools.exe"
-  }
-
-  provisioner "powershell" {
-    scripts = [
-      "scripts/spiceTools.ps1",
-      "scripts/Install-CloudBaseInit.ps1"
+  provisioner "windows-update" {
+    filters = [
+      # exclude KB5007651:
+      # Update for Windows Security platform - KB5007651 (Version 10.0.29510.1001)
+      # NB it can only be applied while the user is logged in.
+      "exclude:$_.Title -like '*KB5007651*'",
+      "include:$true",
     ]
   }
 
   provisioner "powershell" {
-    scripts = ["scripts/fixes.ps1"]
+    scripts = [
+      # "scripts/configureRemotingForAnsible.ps1",
+      # "scripts/spiceToolsInstall.ps1",
+      "scripts/enable-rdp.ps1"
+    ]
   }
 
   provisioner "windows-restart" {}
 
-  provisioner "powershell" {
-    scripts = [
-      "scripts/cleanup.ps1",
-      "scripts/shrink-filesystem.ps1"
-    ]
+  provisioner "windows-shell" {
+    script = "scripts/disable-auto-logon.bat"
   }
 
   provisioner "powershell" {
-    script = "scripts/sysprep.ps1"
+    scripts = [
+      "scripts/fix.ps1",
+      "scripts/Install-CloudBaseInit.ps1",
+      "scripts/cleanup.ps1",
+      "scripts/shrink-filesystem.ps1",
+      "scripts/sysprep.ps1"
+    ]
   }
 
   post-processor "shell-local" {

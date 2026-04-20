@@ -267,13 +267,13 @@ If (!(Get-Service "WinRM"))
 ElseIf ((Get-Service "WinRM").Status -ne "Running")
 {
     Write-Output "Setting WinRM service to start automatically on boot."
+    sc.exe config WinRM start= Auto
+    Write-Log "Set WinRM service to start automatically on boot."
     Write-Output "Starting WinRM service."
     Start-Service -Name "WinRM" -ErrorAction Stop
     Write-Log "Started WinRM service."
-}
 
-sc.exe config WinRM start= Auto
-Write-Log "Set WinRM service to start automatically on boot."
+}
 
 # WinRM should be running; check that we have a PS session config.
 If (!(Get-PSSessionConfiguration -Verbose:$false) -or (!(Get-ChildItem WSMan:\localhost\Listener)))
