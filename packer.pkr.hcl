@@ -95,7 +95,7 @@ build {
       "parted -s target-qemu/* print free",
       "NEW_SIZE=$(parted -sm target-qemu/* unit b print free | grep free | awk -F ':' '{print $2}' | sort -rh | head -n 1)",
       "qemu-img resize -f raw --shrink target-qemu/* $NEW_SIZE",
-      "qemu-img convert -f raw -O qcow2 target-qemu/windows-server-2019 target-qemu/windows-server-2019.qcow2"
+      "qemu-img convert -f raw -O qcow2 target-qemu/windows-server-2025 target-qemu/windows-server-2025.qcow2"
     ]
   }
 }
