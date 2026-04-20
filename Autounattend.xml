@@ -115,10 +115,10 @@
                 <PathAndCredentials wcm:action="add" wcm:keyValue="1">
                     <Path>E:\viostor\2k25\amd64</Path>
                 </PathAndCredentials>
-                <!-- <PathAndCredentials wcm:action="add" wcm:keyValue="2">
+                <PathAndCredentials wcm:action="add" wcm:keyValue="2">
                     <Path>E:\NetKVM\2k25\amd64</Path>
                 </PathAndCredentials>
-                <PathAndCredentials wcm:action="add" wcm:keyValue="3">
+                <!-- <PathAndCredentials wcm:action="add" wcm:keyValue="3">
                     <Path>E:\vioinput\2k25\amd64</Path>
                 </PathAndCredentials> -->
             </DriverPaths>
@@ -181,23 +181,23 @@
             </AutoLogon>
             <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>cmd.exe /c start /wait "" msiexec.exe /i "E:\virtio-win-gt-x64.msi" /qn /norestart /l*v "C:\temp\logs\VirtioInstall.log"</CommandLine>
-                    <Description>Install VirtIO Guest Tools</Description>
-                    <Order>1</Order>
-                </SynchronousCommand>
-                <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell.exe -NoProfile -Command "New-Item -ItemType Directory -Force -Path 'C:\temp\logs'"</CommandLine>
                     <Description>Create Log Directory</Description>
-                    <Order>2</Order>
+                    <Order>1</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy64.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force; Stop-Transcript"</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
-                    <Order>3</Order>
+                    <Order>2</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy32.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force; Stop-Transcript"</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
+                    <Order>3</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
+                    <CommandLine>cmd.exe /c start /wait "" msiexec.exe /i "E:\virtio-win-gt-x64.msi" /qn /norestart /l*v "C:\temp\logs\VirtioInstall.log"</CommandLine>
+                    <Description>Install VirtIO Guest Tools</Description>
                     <Order>4</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
