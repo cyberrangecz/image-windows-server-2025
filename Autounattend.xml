@@ -179,7 +179,7 @@
                 <Username>windows</Username>
                 <Enabled>true</Enabled>
             </AutoLogon>
-<FirstLogonCommands>
+            <FirstLogonCommands>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c start /wait "" msiexec.exe /i "E:\virtio-win-gt-x64.msi" /qn /norestart /l*v "C:\temp\logs\VirtioInstall.log"</CommandLine>
                     <Description>Install VirtIO Guest Tools</Description>
