@@ -1,6 +1,6 @@
 # Windows Server 2019 Base image
 
-This repo contains Packer files for building Windows Server 2019 amd64 Standard Desktop base image for QEMU/OpenStack.
+This repo contains Packer files for building Windows Server 2025 amd64 Standard Desktop base image for QEMU/OpenStack.
 
 SSH and WinRM is enabled, SSH login using password is disabled.
 
