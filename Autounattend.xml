@@ -191,34 +191,39 @@
                     <Order>2</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
+                    <CommandLine>powershell.exe -NoProfile -Command "Start-Transcript -Path 'C:\temp\logs\WaitNetwork.log'; $i=0; $connected=$false; while(!$connected -and ($i -lt 90)) { Write-Host 'Waiting for network...'; if(Test-Connection -ComputerName 8.8.8.8 -Count 1 -Quiet -ErrorAction SilentlyContinue) { $connected=$true } else { Start-Sleep -Seconds 2; $i++ } }; if($connected) { Write-Host 'SUCCESS: Network connection established!' } else { Write-Host 'WARNING: Network connection failed after 3 minutes!' }; Stop-Transcript"</CommandLine>
+                    <Description>Wait and Verify Network Connection</Description>
+                    <Order>3</Order>
+                </SynchronousCommand>
+                <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy64.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force; Stop-Transcript"</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
-                    <Order>3</Order>
+                    <Order>4</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy32.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force; Stop-Transcript"</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
-                    <Order>4</Order>
+                    <Order>5</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                      <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SpiceInstall.log'; &amp; 'A:\spiceToolsInstall.ps1'; Stop-Transcript"</CommandLine>
                     <Description>Install Spice Tools</Description>
-                    <Order>5</Order>
+                    <Order>6</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell.exe -NoProfile -Command "Start-Transcript -Path 'C:\temp\logs\NetworkPrompt.log'; New-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Network' -Name 'NewNetworkWindowOff' -Value 1 -PropertyType DWord -Force; Stop-Transcript"</CommandLine>
                     <Description>Network prompt</Description>
-                    <Order>6</Order>
+                    <Order>7</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell.exe -NoProfile -Command "Start-Transcript -Path 'C:\temp\logs\EdgeFirstRun.log'; if (!(Test-Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge')) { New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Force }; New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Edge' -Name 'HideFirstRunExperience' -Value 1 -PropertyType DWord -Force; Stop-Transcript"</CommandLine>
                     <Description>Disable Edge First Run Experience</Description>
-                    <Order>7</Order>
+                    <Order>8</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>powershell.exe -NoProfile -Command "Start-Transcript -Path 'C:\temp\logs\PrivacyPrompt.log'; New-Item -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE' -Force | Out-Null; Set-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\Windows\OOBE' -Name 'DisablePrivacyExperience' -Value 1 -Type DWord -Force; Stop-Transcript"</CommandLine>
                     <Description>Disable User Privacy Experience Screen</Description>
-                    <Order>8</Order>
+                    <Order>9</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
                     <CommandLine>cmd.exe /c "a:\power_plan_tune.cmd &gt;&gt; C:\temp\logs\PowerPlanTune.log 2&gt;&amp;1"</CommandLine>
