@@ -196,12 +196,12 @@
                     <Order>3</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy64.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force; Stop-Transcript"</CommandLine>
+                    <CommandLine>powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy64.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force -ErrorAction SilentlyContinue; Stop-Transcript"</CommandLine>
                     <Description>Set Execution Policy 64 Bit</Description>
                     <Order>4</Order>
                 </SynchronousCommand>
                 <SynchronousCommand wcm:action="add">
-                    <CommandLine>C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy32.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Force; Stop-Transcript"</CommandLine>
+                    <CommandLine>C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell.exe -NoProfile -ExecutionPolicy Bypass -Command "Start-Transcript -Path 'C:\temp\logs\SetExecutionPolicy32.log'; Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope LocalMachine -Force -ErrorAction SilentlyContinue; Stop-Transcript"</CommandLine>
                     <Description>Set Execution Policy 32 Bit</Description>
                     <Order>5</Order>
                 </SynchronousCommand>
