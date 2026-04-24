@@ -54,8 +54,6 @@ source "qemu" "windows_server_2025" {
 build {
   sources = ["source.qemu.windows_server_2025"]
 
-  provisioner "windows-restart" {} #fix system interrupts - spice tools needed reboot
-
   provisioner "windows-update" {
     filters = [
       # exclude KB5007651:

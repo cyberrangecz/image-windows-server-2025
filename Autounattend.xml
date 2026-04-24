@@ -115,10 +115,10 @@
                 <PathAndCredentials wcm:action="add" wcm:keyValue="1">
                     <Path>E:\viostor\2k25\amd64</Path>
                 </PathAndCredentials>
-                <!-- <PathAndCredentials wcm:action="add" wcm:keyValue="2">
+                <PathAndCredentials wcm:action="add" wcm:keyValue="2">
                     <Path>E:\NetKVM\2k25\amd64</Path>
                 </PathAndCredentials>
-                <PathAndCredentials wcm:action="add" wcm:keyValue="3">
+                <!-- <PathAndCredentials wcm:action="add" wcm:keyValue="3">
                     <Path>E:\vioinput\2k25\amd64</Path>
                 </PathAndCredentials> -->
             </DriverPaths>
