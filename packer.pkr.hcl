@@ -5,7 +5,7 @@ packer {
       version = "~> 1"
     }
     windows-update = {
-      version = "0.18.1"
+      version = "v0.17.3"
       source  = "github.com/rgl/windows-update"
     }
     external = {
@@ -24,13 +24,14 @@ data "external-raw" "virtio" {
 
 source "qemu" "windows_server_2025" {
   boot_wait            = "10s"
-  disk_interface       = "virtio"
+  disk_interface       = "ide"
   disk_size            = "50000"
   floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/spiceToolsInstall.ps1", "scripts/fixnetwork.ps1", "scripts/power_plan_tune.cmd"]
   format               = "raw"
   headless             = "true"
   iso_checksum         = "7b052573ba7894c9924e3e87ba732ccd354d18cb75a883efa9b900ea125bfd51"
   iso_url              = "https://software-static.download.prss.microsoft.com/dbazure/998969d5-f34g-4e03-ac9d-1f9786c66749/26100.32230.260111-0550.lt_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
+  machine_type         = "q35"
   output_directory     = "target-qemu"
   qemuargs             = [
       ["-enable-kvm"],
