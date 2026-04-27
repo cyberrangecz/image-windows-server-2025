@@ -55,15 +55,7 @@ source "qemu" "windows_server_2025" {
 build {
   sources = ["source.qemu.windows_server_2025"]
 
-  provisioner "windows-update" {
-    filters = [
-      # exclude KB5007651:
-      # Update for Windows Security platform - KB5007651 (Version 10.0.29510.1001)
-      # NB it can only be applied while the user is logged in.
-      "exclude:$_.Title -like '*KB5007651*'",
-      "include:$true",
-    ]
-  }
+  provisioner "windows-update" {}
 
   provisioner "powershell" {
     scripts = [
