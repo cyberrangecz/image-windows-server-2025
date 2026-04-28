@@ -5,7 +5,7 @@ packer {
       version = "~> 1"
     }
     windows-update = {
-      version = "v0.17.3"
+      version = "v0.18.1"
       source  = "github.com/rgl/windows-update"
     }
     external = {
