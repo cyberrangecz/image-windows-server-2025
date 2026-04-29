@@ -85,40 +85,28 @@
                 <PathAndCredentials wcm:action="add" wcm:keyValue="2">
                     <Path>E:\viostor\2k25\amd64</Path>
                 </PathAndCredentials>
-
                 <PathAndCredentials wcm:action="add" wcm:keyValue="3">
                     <Path>E:\NetKVM\2k25\amd64</Path>
                 </PathAndCredentials>
-
                 <PathAndCredentials wcm:action="add" wcm:keyValue="4">
                     <Path>E:\Balloon\2k25\amd64</Path>
                 </PathAndCredentials>
-
                 <PathAndCredentials wcm:action="add" wcm:keyValue="5">
                     <Path>E:\pvpanic\2k25\amd64</Path>
                 </PathAndCredentials>
-
                 <PathAndCredentials wcm:action="add" wcm:keyValue="6">
                     <Path>E:\qemupciserial\2k25\amd64</Path>
                 </PathAndCredentials>
-
                 <PathAndCredentials wcm:action="add" wcm:keyValue="7">
-                    <Path>E:\qxldod\2k25\amd64</Path>
-                </PathAndCredentials>
-
-                <PathAndCredentials wcm:action="add" wcm:keyValue="8">
                     <Path>E:\vioinput\2k25\amd64</Path>
                 </PathAndCredentials>
-
-                <PathAndCredentials wcm:action="add" wcm:keyValue="9">
+                <PathAndCredentials wcm:action="add" wcm:keyValue="8">
                     <Path>E:\viorng\2k25\amd64</Path>
                 </PathAndCredentials>
-
-                <PathAndCredentials wcm:action="add" wcm:keyValue="10">
+                <PathAndCredentials wcm:action="add" wcm:keyValue="9">
                     <Path>E:\vioscsi\2k25\amd64</Path>
                 </PathAndCredentials>
-
-                <PathAndCredentials wcm:action="add" wcm:keyValue="11">
+                <PathAndCredentials wcm:action="add" wcm:keyValue="10">
                     <Path>E:\vioserial\2k25\amd64</Path>
                 </PathAndCredentials>
             </DriverPaths>

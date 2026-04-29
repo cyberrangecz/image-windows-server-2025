@@ -90,9 +90,9 @@ build {
   post-processor "shell-local" {
     inline = [
       "parted -s target-qemu/windows-server-2025 unit b print free",
-      "END=$(parted -sm target-qemu/windows-server-2025 unit b print | grep '^3:' | cut -d: -f3)",
-      "NEW_SIZE=$((${END%B} + 1048576))",
-      "qemu-img resize -f raw --shrink target-qemu/windows-server-2025 ${NEW_SIZE}",
+      "END=$$(parted -sm target-qemu/windows-server-2025 unit b print | grep '^3:' | cut -d: -f3)",
+      "NEW_SIZE=$$(($${END%B} + 1048576))",
+      "qemu-img resize -f raw --shrink target-qemu/windows-server-2025 $$NEW_SIZE",
       "sgdisk --move-second-header target-qemu/windows-server-2025",
       "qemu-img convert -f raw -O qcow2 target-qemu/windows-server-2025 target-qemu/windows-server-2025.qcow2"
     ]
