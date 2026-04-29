@@ -26,6 +26,10 @@ source "qemu" "windows_server_2025" {
   boot_wait            = "10s"
   disk_interface       = "virtio"
   disk_size            = "50000"
+  efi_boot             = true
+  efi_firmware_code    = "/usr/share/OVMF/OVMF_CODE_4M.fd"
+  efi_firmware_vars    = "/usr/share/OVMF/OVMF_VARS_4M.fd"
+  vtpm                 = true
   floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/spiceToolsInstall.ps1", "scripts/fixnetwork.ps1", "scripts/power_plan_tune.cmd"]
   format               = "raw"
   headless             = "true"
@@ -37,8 +41,10 @@ source "qemu" "windows_server_2025" {
       ["-enable-kvm"],
       ["-m", "6144m"],
       ["-smp", "4,sockets=1,cores=4,threads=1"],
-      ["-cpu", "host,hv_relaxed,hv_vapic,hv_runtime,hv_time,hv_vpindex,hv_synic,hv_stimer,hv_tlbflush,hv_ipi,hv_frequencies,hv_stimer_direct,hv_xmm_input,hv_tlbflush,hv_spinlocks=0x1fff"], #hv_tlbflush_ext not supported in kernel
-      ["-device", "virtio-tablet"], # Better mouse tracking in VNC
+      ["-cpu", "host,hv_relaxed,hv_vapic,hv_runtime,hv_time,hv_vpindex,hv_synic,hv_stimer,hv_tlbflush,hv_ipi,hv_frequencies,hv_stimer_direct,hv_xmm_input,hv_spinlocks=0x1fff"],
+      ["-no-hpet"],
+      ["-global", "kvm-pit.lost_tick_policy=discard"],
+      ["-device", "virtio-tablet"],
       ["-cdrom", "virtio-win.iso"]
   ]
   shutdown_command     = "shutdown /s /t 10 /f /d p:4:1 /c \"Packer Shutdown\""
@@ -83,9 +89,11 @@ build {
 
   post-processor "shell-local" {
     inline = [
-      "parted -s target-qemu/* print free",
-      "NEW_SIZE=$(parted -sm target-qemu/* unit b print free | grep free | awk -F ':' '{print $2}' | sort -rh | head -n 1)",
-      "qemu-img resize -f raw --shrink target-qemu/* $NEW_SIZE",
+      "parted -s target-qemu/windows-server-2025 unit b print free",
+      "END=$(parted -sm target-qemu/windows-server-2025 unit b print | grep '^3:' | cut -d: -f3)",
+      "NEW_SIZE=$((${END%B} + 1048576))",
+      "qemu-img resize -f raw --shrink target-qemu/windows-server-2025 ${NEW_SIZE}",
+      "sgdisk --move-second-header target-qemu/windows-server-2025",
       "qemu-img convert -f raw -O qcow2 target-qemu/windows-server-2025 target-qemu/windows-server-2025.qcow2"
     ]
   }
