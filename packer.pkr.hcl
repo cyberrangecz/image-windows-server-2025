@@ -23,6 +23,7 @@ data "external-raw" "virtio" {
 }
 
 source "qemu" "windows_server_2025" {
+  boot_command         = [" "]
   boot_wait            = "10s"
   disk_interface       = "virtio"
   disk_size            = "50000"
@@ -82,6 +83,7 @@ build {
       "scripts/fix.ps1",
       "scripts/Install-CloudBaseInit.ps1",
       "scripts/cleanup.ps1",
+      "scripts/remove-recovery-partition.ps1",
       "scripts/shrink-filesystem.ps1",
       "scripts/sysprep.ps1"
     ]
