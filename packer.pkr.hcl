@@ -23,8 +23,8 @@ data "external-raw" "virtio" {
 }
 
 source "qemu" "windows_server_2025" {
-  boot_command         = [" "]
-  boot_wait            = "10s"
+  boot_command         = [" <wait2s> <wait2s> <wait2s> <wait2s> <wait2s>"]
+  boot_wait            = "1s"
   disk_interface       = "virtio"
   disk_size            = "50000"
   efi_boot             = true
