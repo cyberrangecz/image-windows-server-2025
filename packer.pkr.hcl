@@ -97,14 +97,37 @@ build {
     ]
   }
 
-  post-processor "shell-local" {
+post-processor "shell-local" {
+    inline_shebang = "/bin/bash -e"
     inline = [
-      "parted -s target-qemu/windows-server-2025 unit b print free",
-      "END=$$(parted -sm target-qemu/windows-server-2025 unit b print | grep '^3:' | cut -d: -f3)",
-      "NEW_SIZE=$$(($${END%B} + 1048576))",
-      "qemu-img resize -f raw --shrink target-qemu/windows-server-2025 $$NEW_SIZE",
-      "sgdisk --move-second-header target-qemu/windows-server-2025",
-      "qemu-img convert -f raw -O qcow2 target-qemu/windows-server-2025 target-qemu/windows-server-2025.qcow2"
+      <<-EOF
+        set -euo pipefail
+
+        IMG="target-qemu/windows-server-2025"
+
+        # Print initial state for debugging
+        parted -s "$IMG" unit b print free
+
+        # Extract end bytes of partition 3
+        END=$(parted -sm "$IMG" unit b print | grep '^3:' | cut -d: -f3)
+        END_BYTES=$${END%B}
+
+        # Align to 1 MiB (1048576 bytes)
+        ALIGN=1048576
+
+        # Calculate new size: round up to nearest 1 MiB, plus 1 extra MiB for the GPT footer
+        NEW_SIZE=$(( (END_BYTES + ALIGN + ALIGN - 1) / ALIGN * ALIGN ))
+
+        echo "Partition end: $${END_BYTES}B"
+        echo "New image size aligned to 1MiB: $${NEW_SIZE}B"
+
+        # Execute resize and GPT repair
+        qemu-img resize -f raw --shrink "$IMG" "$NEW_SIZE"
+        sgdisk --move-second-header "$IMG"
+
+        # Convert to qcow2
+        qemu-img convert -f raw -O qcow2 "$IMG" "$IMG.qcow2"
+      EOF
     ]
   }
 }
