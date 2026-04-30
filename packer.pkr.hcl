@@ -23,7 +23,7 @@ data "external-raw" "virtio" {
 }
 
 source "qemu" "windows_server_2025" {
-  boot_command         = [" <wait2s> <wait2s> <wait2s> <wait2s> <wait2s>"]
+  boot_command         = ["<wait2s> <wait2s> <wait2s> <wait2s> <wait2s>"]
   boot_wait            = "1s"
   disk_interface       = "virtio"
   disk_size            = "50000"
@@ -62,7 +62,15 @@ source "qemu" "windows_server_2025" {
 build {
   sources = ["source.qemu.windows_server_2025"]
 
-  provisioner "windows-update" {}
+  provisioner "windows-update" {
+    filters = [
+      # exclude KB5007651:
+      #   Update for Windows Security platform - KB5007651 (Version 10.0.29510.1001)
+      # NB it can only be applied while the user is logged in.
+      "exclude:$_.Title -like '*KB5007651*'",
+      "include:$true",
+    ]
+  }
 
   provisioner "powershell" {
     scripts = [
