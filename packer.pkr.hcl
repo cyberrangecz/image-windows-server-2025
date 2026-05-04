@@ -26,8 +26,6 @@ source "qemu" "windows_server_2025" {
   boot_command         = ["<wait2s> <wait2s> <wait2s> <wait2s> <wait2s>"]
   boot_wait            = "1s"
   disk_interface       = "virtio"
-  boot_wait            = "10s"
-  disk_interface       = "ide"
   disk_size            = "50000"
   efi_boot             = true
   efi_firmware_code    = "/usr/share/OVMF/OVMF_CODE_4M.secboot.fd"
