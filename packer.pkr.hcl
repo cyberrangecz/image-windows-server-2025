@@ -28,23 +28,22 @@ source "qemu" "windows_server_2025" {
   disk_interface       = "virtio"
   disk_size            = "50000"
   efi_boot             = true
-  efi_firmware_code    = "/usr/share/OVMF/OVMF_CODE_4M.fd"
-  efi_firmware_vars    = "/usr/share/OVMF/OVMF_VARS_4M.fd"
-  vtpm                 = true
+  efi_firmware_code    = "/usr/share/OVMF/OVMF_CODE_4M.secboot.fd"
+  efi_firmware_vars    = "/usr/share/OVMF/OVMF_VARS_4M.ms.fd"
   floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/spiceToolsInstall.ps1", "scripts/fixnetwork.ps1", "scripts/power_plan_tune.cmd"]
   format               = "raw"
   headless             = "true"
   iso_checksum         = "7b052573ba7894c9924e3e87ba732ccd354d18cb75a883efa9b900ea125bfd51"
   iso_url              = "https://software-static.download.prss.microsoft.com/dbazure/998969d5-f34g-4e03-ac9d-1f9786c66749/26100.32230.260111-0550.lt_release_svc_refresh_SERVER_EVAL_x64FRE_en-us.iso"
-  machine_type         = "q35"
+  machine_type         = "q35,smm=on,hpet=off"
   output_directory     = "target-qemu"
   qemuargs             = [
       ["-enable-kvm"],
       ["-m", "6144m"],
       ["-smp", "4,sockets=1,cores=4,threads=1"],
       ["-cpu", "host,hv_relaxed,hv_vapic,hv_runtime,hv_time,hv_vpindex,hv_synic,hv_stimer,hv_tlbflush,hv_ipi,hv_frequencies,hv_stimer_direct,hv_xmm_input,hv_spinlocks=0x1fff"],
-      ["-no-hpet"],
       ["-global", "kvm-pit.lost_tick_policy=discard"],
+      ["-global", "driver=cfi.pflash01,property=secure,value=on"],
       ["-device", "virtio-tablet"],
       ["-cdrom", "virtio-win.iso"]
   ]
