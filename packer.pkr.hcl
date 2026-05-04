@@ -30,7 +30,7 @@ source "qemu" "windows_server_2025" {
   efi_boot             = true
   efi_firmware_code    = "/usr/share/OVMF/OVMF_CODE_4M.secboot.fd"
   efi_firmware_vars    = "/usr/share/OVMF/OVMF_VARS_4M.ms.fd"
-  floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/spiceToolsInstall.ps1", "scripts/fixnetwork.ps1", "scripts/power_plan_tune.cmd"]
+  floppy_files         = ["Autounattend.xml", "redhat.cer", "scripts/microsoft-updates.ps1", "scripts/openssh.ps1", "scripts/spiceToolsInstall.ps1", "scripts/power_plan_tune.cmd"]
   format               = "raw"
   headless             = "true"
   iso_checksum         = "7b052573ba7894c9924e3e87ba732ccd354d18cb75a883efa9b900ea125bfd51"
