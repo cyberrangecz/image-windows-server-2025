@@ -118,7 +118,7 @@ post-processor "shell-local" {
         sgdisk --move-second-header "$IMG"
 
         # Convert to qcow2
-        qemu-img convert -f raw -O qcow2 "$IMG" "$IMG.qcow2"
+        qemu-img convert -p -f raw -O qcow2 "$IMG" "$IMG.qcow2"
       EOF
     ]
   }
